@@ -1,0 +1,25 @@
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+  </head>
+
+  <body
+    ng-init="todoTasks=[]"
+  >
+
+    <input ng-model="newItemDescription">
+    <button ng-click="todoTasks.push({description: newItemDescription, finished: false}); newItemDescription='';">Add</button>
+
+    <h1>Tasks: {{ (todoTasks | filter:{'finished':false}).length }} remaining </h1>
+    <h3>Finished: {{ (todoTasks | filter:{'finished':true}).length }} finished </h3>
+    <ul>
+      <li ng-repeat="task in todoTasks">
+        <span style="text-decoration: {{ task.finished ? 'line-through' : '' }}">{{ task.description }}</span>
+        <button ng-click="task.finished=true;">Finish</button>
+      </li>
+    </ul>
+  </body>
+
+  <script>
+  </script
+</html>
