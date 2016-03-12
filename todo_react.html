@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.js"></script>
+    <script src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xpa1/t39.3284-6/12512178_218562685145124_130271029_n.js"></script>
+    <script src="https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xfa1/t39.3284-6/12512184_1664789273772979_614489084_n.js"></script>
+  </head>
+  <body>
+    <div id="root-for-react"></div>
+
+    <script type="text/babel">
+      var ShittyToDoAppInOneComponent = React.createClass({
+        getInitialState: function(){
+          return { todoItems: [] };
+        },
+        render: function() {
+          return (
+          <div>
+            <input ref="inputElement"/>
+            <button onClick={function(event){
+              this.setState({
+                todoItems: this.state.todoItems.concat([
+                  {finished: false, description: this.refs.inputElement.value}]
+                )});
+              this.refs.inputElement.value = '';
+            }.bind(this)}>Add</button>
+            <h1>Tasks: {this.state.todoItems.filter(function(i){ return !i.finished }).length }</h1>
+            <h3>Finished: {this.state.todoItems.filter(function(i){ return i.finished }).length }</h3>
+              <ul>
+                {
+                  this.state.todoItems.map(function(task, index){
+                  return (
+                      <div key={index}>
+                        <span style={{textDecoration: task.finished ? 'line-through' : '' }}>{task.description}</span>
+                        <button
+                          disabled={task.finished}
+                          onClick={function(){
+                                    task.finished = true;
+                                    this.setState({todoItems: this.state.todoItems});
+                                  }.bind(this)}
+                        >Finish</button>
+                      </div>
+                      );
+                  }.bind(this))
+                }
+              </ul>
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <ShittyToDoAppInOneComponent />,
+        document.getElementById('root-for-react')
+      );
+
+    </script>
+  </body>
+</html>

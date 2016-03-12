@@ -24,6 +24,7 @@
         >{{ task.description }}</span>
         <button
           ng-click="task.finished=true;"
+          ng-disabled="task.finished"
         >Finish</button>
       </li>
     </ul>
